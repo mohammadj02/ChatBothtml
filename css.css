@@ -1,0 +1,90 @@
+/* Add your custom CSS styles here */
+/* For example, you can change the background color of the chat window */
+.chat-window {
+  width: 90%; /* Adjust the width to fit the screen */
+  max-width: 400px; /* Set a maximum width for larger screens */
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.chat-window {
+  background-color: #f1f0f0;
+}
+
+.output {
+  height: 400px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+body {
+  background-image: url('https://dam.sothebys.com/dam/image/lot/a5e7d856-0afb-4ab4-a21f-ead6f0df1a3f/primary/extra_small');
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#send-btn,
+#clear-btn,
+#help-btn {
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.logo {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url(my\ logo.png);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .chat-window {
+    width: 90%; /* Adjust the width to fit the screen */
+    max-width: 90%; /* Set a maximum width for larger screens */
+    height: 100%;
+    margin: 10px auto;
+  }
+}

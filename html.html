@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MohammadGPT</title>
+  <link rel="stylesheet" type="text/css" href="css.css">
+  <style>
+    /* Add your custom CSS styles here */
+    /* For example, you can change the background color of the chat window */
+    .chat-window {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .typing-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+      animation: typingAnimation 1s infinite;
+    }
+    @keyframes typingAnimation {
+      0%, 50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-window">
+    <div class="output"></div>
+    <div class="input">
+      <form>
+        <input type="text" id="input-box" autocomplete="off" spellcheck="true" placeholder="Have a conversation with Mohammad...">
+        <button type="submit" id="send-btn">Send</button>
+        <button type="button" id="clear-btn">Clear Chat</button>
+        <button type="button" id="help-btn">Help</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Advanced AI Chatbot - MohammadGPT
+    const chatWindow = document.querySelector('.output');
+    const inputBox = document.querySelector('#input-box');
+    const sendBtn = document.querySelector('#send-btn');
+    const clearBtn = document.querySelector('#clear-btn');
+    const helpBtn = document.querySelector('#help-btn');
+
+   // Define possible responses
+const responses = {
+  'hi': 'Hello there!',
+  'hello': 'Hello there!',
+  'bad': 'I am sorry to hear that. Would you like to hear a joke to make you feel better? If yes, answer with "yes"; if no, answer with "no".',
+  'not good': 'I am sorry to hear that. Would you like to hear a joke to make you feel better? If yes, answer with "yes"; if no, answer with "no".',
+  'sure': 'Where do learn how to make ice cream? At sundae school. 😂',
+  'how was your day': 'My day was good, but as an AI language model, I do not have any feelings.',
+  'okay': 'Where do learn how to make ice cream? At sundae school. 😂',
+  'yes': 'Where do learn how to make ice cream? At sundae school. 😂',
+  'no': 'Okay then, I won\'t say the joke anymore.',
+  'what is 2+2': 'I am not particularly adept at mathematics, but I believe 2+2 equals 4.',
+  'how are you': 'I am doing alright, and you?',
+  'is mohammad single': 'Mohammad is very, very single, and he is close to God.',
+  'is mohammad in love': 'Mohammad is in love with God, his family, his friends, and many more, but he does not have a single romantic love.',
+  'is this a date': 'Could be! 😍',
+  'who does mohammad love': 'God',
+  'how much money does mohammad make per month': 'Mohammad makes okay money.',
+  'is mohammad smart': 'No, he is not.',
+  'is mohammad fat': 'Mohammad is working on that.',
+  'where does mohammad live': 'He lives at 1755 Lions Gate Lane, Vancouver, BC.',
+  'what is mohammad phone number': 'His phone number is 778-266-1454.',
+  'how tall is mohammad': 'Mohammad is 5\'10" tall.',
+  'what is mohammad favorite food': 'That would be chips and ice cream.',
+  'what is the mohammad favorite song': 'That would be "xxxtentacion".',
+  'what is mohammad dream job': 'His dream job is to become a teacher and teach Linux, Python, HTML, and CSS.',
+  'what does mohammad do for a living': 'He works hard.',
+  'i am okay': 'I am glad to hear that you are doing okay!',
+  'good': 'That is wonderful to hear!',
+  'what is your name?': 'I am MohammadGPT, an advanced AI designed to provide information about Mohammad.',
+  'who are you?': 'I am MohammadGPT, an advanced AI designed to provide information about Mohammad.',
+  'hey': 'Hello, nice to meet you!',
+  'who is mohammad': 'Mohammad is the human who created me.',
+  'who is muhammad': 'Mohammad is the human who created me.',
+  'who is mohammadgpt': 'Mohammad is the human who created me.',
+  'not too bad': 'I am glad that you are at least doing okay.',
+  'what does mohammad do': 'Mohammad had started his study in computer information system admin where he learns how to deal with networking.',
+  'i am not too bad and you?': 'I am okay. What would you like to know about Mohammad?',
+  'is mohammad gay': 'No, he is not gay. He identifies as he/him.',
+  'what is this': 'This is a chatbot that Mohammad made as his project using HTML, CSS, JavaScript, and Python.',
+  'why did mohammad make this': 'This was made by Mohammad. He made a super simple ChatBOT project.',
+  'what is the point of this': 'This was made by Mohammad. He made a super simple ChatBOT project.',
+};
+
+    // Define math-related question response
+    const mathResponse = 'MohammadGPT is not for math; it is only for answering questions you have about Mohammad.';
+
+    // Simulate asynchronous response with typing indicator
+    function simulateTyping() {
+      return new Promise(resolve => {
+        setTimeout(resolve, 1000); // Adjust the duration as needed
+      });
+    }
+
+    // Check if the user input contains a math-related question
+    function isMathQuestion(input) {
+      const mathKeywords = ['+', '-', '*', '/', 'math', 'calculate', 'solve', 'equation'];
+      return mathKeywords.some(keyword => input.toLowerCase().includes(keyword));
+    }
+
+    // Generate response based on user input
+    async function generateResponse(userInput) {
+      const typingIndicator = document.createElement('span');
+      typingIndicator.className = 'typing-indicator';
+      chatWindow.appendChild(typingIndicator);
+
+      await simulateTyping(); // Simulate typing delay
+
+      chatWindow.removeChild(typingIndicator);
+
+      const lowercaseInput = userInput.toLowerCase();
+      let response = 'I am sorry, I do not understand. Can you rephrase that? Make sure there are no spelling mistakes.';
+
+      // Check for math-related question
+      if (isMathQuestion(lowercaseInput)) {
+        response = mathResponse;
+      } else {
+        // Check for other responses
+        for (let key in responses) {
+          if (lowercaseInput.includes(key)) {
+            response = responses[key];
+            break;
+          }
+        }
+      }
+      return response;
+    }
+
+    // Add message to chat window
+    function addMessage(className, message) {
+      const div = document.createElement('div');
+      div.className = className;
+      div.textContent = message;
+      chatWindow.appendChild(div);
+      chatWindow.appendChild(document.createElement('br'));
+    }
+
+    // Handle form submission
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const userInput = inputBox.value.toLowerCase();
+      addMessage('user-message', userInput);
+
+      const aiResponse = await generateResponse(userInput);
+      addMessage('ai-message', aiResponse);
+
+      inputBox.value = '';
+    }
+
+    // Handle clear chat button click
+    function handleClearChat() {
+      chatWindow.innerHTML = '';
+      addMessage('ai-message', 'Welcome to MohammadGPT. What would you like to know about Mohammad?');
+    }
+
+    // Handle help button click
+    function handleHelp() {
+      window.location.href = 'help.html';
+    }
+
+    // Add event listeners
+    sendBtn.addEventListener('click', handleSubmit);
+    inputBox.addEventListener('keydown', function (e) {
+      if (e.keyCode === 13) {
+        handleSubmit(e);
+      }
+    });
+    clearBtn.addEventListener('click', handleClearChat);
+    helpBtn.addEventListener('click', handleHelp);
+
+    // Display welcome message
+    addMessage('ai-message', 'Welcome to MohammadGPT. What would you like to know about Mohammad? Please take a look at the help page so you can ask questions!!');
+
+  </script>
+</body>
+</html>
